@@ -11,7 +11,7 @@ L'objectif est de développer un **dashboard interactif en React** qui affiche d
 - 🔄 **Mise à jour en temps réel** des données via l'API OpenWeatherMap  
 - 🌍 **Recherche de ville** pour obtenir la météo de différentes localisations  
 - ⚡ **Gestion d'état avec Redux** pour optimiser les performances  
-- 🎨 **Interface dynamique et responsive** (React + Material UI ou Tailwind CSS)  
+- 🎨 **Interface dynamique et responsive** (React + Material UI)  
 - ✅ **Optimisation des performances** et tests
 
 ## 🛠️ Technologies utilisées
