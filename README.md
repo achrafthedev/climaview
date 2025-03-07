@@ -1,28 +1,29 @@
-# Dashboard Météo - HETIC - Achraf CHARDOUDI
+# 🌤️ Dashboard Météo - HETIC - Achraf CHARDOUDI  
 
-## 📌 Description du projet
+## 📌 Description du projet  
 
-Ce projet est réalisé dans le cadre "HETIC" pour le titre **"Concepteur Développeur de Solutions Digitales"** (RNCP 36146) - Bloc 3.  
-L'objectif est de développer un **dashboard interactif en React** qui affiche des informations météorologiques en temps réel en utilisant une API externe.
+Ce projet est réalisé dans le cadre de la formation **HETIC** pour le titre **"Concepteur Développeur de Solutions Digitales"** (RNCP 36146) - Bloc 3.  
+L'objectif est de concevoir un **dashboard interactif en React** affichant des informations météorologiques en temps réel grâce à l'API OpenWeatherMap.  
 
-## 🚀 Fonctionnalités
+## 🚀 Fonctionnalités  
 
-- 🌤️ **Affichage des données météo** (température, humidité, conditions)  
-- 🔄 **Mise à jour en temps réel** des données via l'API OpenWeatherMap  
-- 🌍 **Recherche de ville** pour obtenir la météo de différentes localisations  
-- ⚡ **Gestion d'état avec Redux** pour optimiser les performances  
-- 🎨 **Interface dynamique et responsive** (React + Material UI)  
-- ✅ **Optimisation des performances** et tests
+✅ **Affichage des données météo** : température, humidité, conditions  
+✅ **Prévisions sur plusieurs jours** avec gestion des dates dynamiques  
+✅ **Mise à jour en temps réel** des données météo  
+✅ **Recherche de villes** pour obtenir des informations localisées  
+✅ **Gestion d'état avec Redux Toolkit** pour une meilleure performance  
+✅ **Mode sombre & clair** avec Material UI  
+✅ **Interface moderne et responsive**  
 
-## 🛠️ Technologies utilisées
+## 🛠️ Technologies utilisées  
 
 - **Front-end** : React.js  
 - **Gestion d'état** : Redux Toolkit  
 - **Requêtes API** : Axios  
-- **Styles** : Material UI
+- **Interface utilisateur** : Material UI  
 - **API météo** : OpenWeatherMap  
 
-## 🔧 Installation et lancement
+## 🔧 Installation et lancement  
 
 1. **Cloner le repo GitHub :**  
    ```sh
@@ -35,7 +36,9 @@ L'objectif est de développer un **dashboard interactif en React** qui affiche d
    npm install
    ```
 
-3. **Créer un fichier `.env`** pour stocker la clé API OpenWeatherMap :  
+3. **Configurer l'API** :  
+   - Créez un fichier `.env` à la racine du projet  
+   - Ajoutez la clé API OpenWeatherMap :  
    ```sh
    REACT_APP_WEATHER_API_KEY=VOTRE_CLE_API
    ```
@@ -45,13 +48,16 @@ L'objectif est de développer un **dashboard interactif en React** qui affiche d
    npm start
    ```
 
-## 📌 Améliorations futures
+## 🔗 Lien de téléchargement du projet  
 
-- Ajouter des **prévisions sur 7 jours**
-- Intégrer une **carte interactive** avec Leaflet
-- Optimiser la **gestion du cache**
+👉 [Télécharger le projet sur GitHub](https://github.com/achrafthedev/climaview)  
 
-## 📝 Auteur
+## 📌 Améliorations futures  
 
-Projet réalisé par **Achraf Chardoudi** - HETIC.
+- 📍 **Intégration d'une carte interactive** avec Leaflet  
+- 📊 **Ajout de graphiques analytiques** sur les tendances météo  
+- ⚡ **Optimisation des performances** et gestion du cache  
 
+## 📝 Auteur  
+
+Projet réalisé par **Achraf Chardoudi** - Étudiant HETIC.
