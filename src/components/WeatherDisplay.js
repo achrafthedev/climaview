@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWeather } from '../redux/weatherSlice';
-import { Card, CardContent, Typography, TextField, Button, CircularProgress, Container } from '@mui/material';
+import { Card, CardContent, Typography, TextField, Button, CircularProgress, Container, Box } from '@mui/material';
 
 const WeatherDisplay = () => {
   const [city, setCity] = useState('');
@@ -13,41 +13,38 @@ const WeatherDisplay = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" align="center" gutterBottom>
+    <Container maxWidth="md" sx={{ textAlign: "center", mt: 4 }}>
+      <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", color: "#1976D2" }}>
         🌤️ Dashboard Météo
       </Typography>
 
-      <TextField
-        fullWidth
-        label="Entrez une ville..."
-        variant="outlined"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        sx={{ mb: 2 }}
-      />
+      <Box display="flex" justifyContent="center" sx={{ mb: 3 }}>
+        <TextField
+          label="Entrez une ville..."
+          variant="outlined"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          sx={{ width: "60%", mr: 2 }}
+        />
+        <Button variant="contained" size="large" sx={{ bgcolor: "#1976D2" }} onClick={handleFetchWeather}>
+          Rechercher
+        </Button>
+      </Box>
 
-      <Button variant="contained" color="primary" fullWidth onClick={handleFetchWeather}>
-        Rechercher
-      </Button>
+      {status === 'loading' && <CircularProgress />}
+      {status === 'failed' && <Typography color="error">{error}</Typography>}
 
-      {status === 'loading' && <CircularProgress sx={{ mt: 2, display: 'block', mx: 'auto' }} />}
-      {status === 'failed' && <Typography color="error" align="center">{error}</Typography>}
-
-      {/* ✅ FIX: Only display data if it's available */}
-      {data && data.current && data.current.sys ? (
-        <Card sx={{ mt: 3, textAlign: "center", p: 2 }}>
+      {data && data.current && data.current.sys && (
+        <Card elevation={4} sx={{ mt: 3, borderRadius: 3, p: 2, bgcolor: "#E3F2FD" }}>
           <CardContent>
-            <Typography variant="h5">
-              {data.current.name}, {data.current.sys.country}
+            <Typography variant="h4">{data.current.name}, {data.current.sys.country}</Typography>
+            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#D32F2F" }}>
+              🌡 Température : {data.current.main.temp}°C
             </Typography>
-            <Typography variant="h6">🌡 Température : {data.current.main.temp}°C</Typography>
-            <Typography variant="body1">🌥 Conditions : {data.current.weather[0].description}</Typography>
-            <Typography variant="body1">💧 Humidité : {data.current.main.humidity}%</Typography>
+            <Typography variant="h6">🌥 {data.current.weather[0].description}</Typography>
+            <Typography variant="h6">💧 Humidité : {data.current.main.humidity}%</Typography>
           </CardContent>
         </Card>
-      ) : (
-        status !== 'loading' && <Typography align="center" sx={{ mt: 2 }}>Aucune donnée disponible</Typography>
       )}
     </Container>
   );
