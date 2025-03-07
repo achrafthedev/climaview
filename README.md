@@ -19,7 +19,7 @@ L'objectif est de développer un **dashboard interactif en React** qui affiche d
 - **Front-end** : React.js  
 - **Gestion d'état** : Redux Toolkit  
 - **Requêtes API** : Axios  
-- **Styles** : Material UI / Tailwind CSS  
+- **Styles** : Material UI
 - **API météo** : OpenWeatherMap  
 
 ## 🔧 Installation et lancement
