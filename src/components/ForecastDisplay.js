@@ -28,33 +28,34 @@ const ForecastDisplay = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold", mb: 3 }}>
-        🔮 Prévisions Météo
-      </Typography>
+<Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold", mb: 3 }}>
+  🔮 Prévisions Météo
+</Typography>
 
-      <Grid container spacing={3} justifyContent="center">
-        {forecastArray.map((day, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
-            <Card elevation={4} sx={{ textAlign: "center", p: 2, borderRadius: 3 }}>
-              <CardContent>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  {day.date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}
-                </Typography>
-                <img src={`https://openweathermap.org/img/wn/${day.icon}.png`} alt="weather icon" />
-                <Typography variant="body1">
-                  🌡 Temp: {day.temp !== null ? `${day.temp}°C` : "Donnée indisponible"}
-                </Typography>
-                <Typography variant="body2">
-                  🌥 {day.description}
-                </Typography>
-                <Typography variant="body2">
-                  💧 Humidité: {day.humidity !== null ? `${day.humidity}%` : "Donnée indisponible"}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+<Grid container spacing={3} justifyContent="center">
+  {forecastArray.map((day, index) => (
+    <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+      <Card elevation={4} data-testid="forecast-day" sx={{ textAlign: "center", p: 2, borderRadius: 3 }}>
+        <CardContent>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            {day.date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}
+          </Typography>
+          <img src={`https://openweathermap.org/img/wn/${day.icon}.png`} alt="weather icon" />
+          <Typography variant="body1" data-testid="forecast-temp">
+            🌡 Temp: {day.temp !== null ? `${day.temp}°C` : "Donnée indisponible"}
+          </Typography>
+          <Typography variant="body2" data-testid="forecast-description">
+            🌥 {day.description}
+          </Typography>
+          <Typography variant="body2" data-testid="forecast-humidity">
+            💧 Humidité: {day.humidity !== null ? `${day.humidity}%` : "Donnée indisponible"}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+  ))}
+</Grid>
+
     </Container>
   );
 };

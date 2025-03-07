@@ -23,8 +23,12 @@ const WeatherDisplay = () => {
   const colorMode = useContext(ColorModeContext);
 
   const handleFetchWeather = () => {
-    if (city.trim() !== "") dispatch(fetchWeather(city));
+    if (city.trim() !== "") {
+      dispatch(fetchWeather(city));
+      setCity(""); // Réinitialiser le champ après la recherche
+    }
   };
+  
 
   return (
     <Container maxWidth="md" sx={{ textAlign: "center", mt: 4 }}>
@@ -37,7 +41,7 @@ const WeatherDisplay = () => {
         <Typography variant="h3" sx={{ fontWeight: "bold", color: "primary.main" }}>
           🌤️ Dashboard Météo
         </Typography>
-        <IconButton onClick={colorMode.toggleColorMode} color="inherit">
+        <IconButton aria-label="toggle-dark-mode" onClick={colorMode.toggleColorMode} color="inherit">
           {colorMode.mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
       </Box>
@@ -50,7 +54,7 @@ const WeatherDisplay = () => {
           onChange={(e) => setCity(e.target.value)}
           sx={{ width: "60%", mr: 2 }}
         />
-        <Button variant="contained" size="large" onClick={handleFetchWeather}>
+        <Button data-testid="search-button"variant="contained" size="large" onClick={handleFetchWeather}>
           Rechercher
         </Button>
       </Box>
@@ -61,7 +65,7 @@ const WeatherDisplay = () => {
       {data?.current?.sys && (
         <Card elevation={4} sx={{ mt: 3, borderRadius: 3, p: 2 }}>
           <CardContent>
-            <Typography variant="h4">
+            <Typography variant="h4" data-testid="weather-title">
               {data.current.name}, {data.current.sys.country}
             </Typography>
             <Typography variant="h5" sx={{ fontWeight: "bold" }}>

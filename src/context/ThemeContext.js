@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo } from "react";
+import React, { createContext, useState, useMemo, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -10,6 +10,14 @@ const ThemeContextProvider = ({ children }) => {
   const toggleColorMode = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
+
+  useEffect(() => {
+    if (mode === "dark") {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [mode]);
 
   const theme = useMemo(
     () =>

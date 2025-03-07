@@ -46,3 +46,6 @@ const MapComponent = () => {
 };
 
 export default MapComponent;
+
+
+// Not used for now!
