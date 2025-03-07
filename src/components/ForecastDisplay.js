@@ -4,7 +4,6 @@ import { Card, CardContent, Typography, Grid, Container } from '@mui/material';
 
 const ForecastDisplay = () => {
   const { data } = useSelector((state) => state.weather);
-  console.log("Forecast Data:", data?.daily);
 
   if (!data || !data.daily || !Array.isArray(data.daily) || data.daily.length === 0) {
     return <Typography align="center" sx={{ mt: 2 }}>Aucune prévision disponible</Typography>;
@@ -23,16 +22,16 @@ const ForecastDisplay = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" sx={{ textAlign: "center", color: "#1976D2", fontWeight: "bold", mb: 3 }}>
+      <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold", mb: 3 }}>
         🔮 Prévisions Météo
       </Typography>
       
       <Grid container spacing={3} justifyContent="center">
         {forecastArray.map((day, index) => (
           <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
-            <Card elevation={4} sx={{ textAlign: "center", p: 2, borderRadius: 3, bgcolor: "#E1F5FE" }}>
+            <Card elevation={4} sx={{ textAlign: "center", p: 2, borderRadius: 3 }}>
               <CardContent>
-                <Typography variant="h6" sx={{ fontWeight: "bold", color: "#0288D1" }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                   {new Date(day.dt * 1000).toLocaleDateString("fr-FR", { weekday: "long" })}
                 </Typography>
                 <img src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}.png`} alt="weather icon" />

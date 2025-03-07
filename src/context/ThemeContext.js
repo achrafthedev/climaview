@@ -1,0 +1,45 @@
+import React, { createContext, useState, useMemo } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
+export const ColorModeContext = createContext(); // ✅ Ensure it's exported
+
+const ThemeContextProvider = ({ children }) => {
+  const [mode, setMode] = useState("light");
+
+  const toggleColorMode = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          ...(mode === "light"
+            ? {
+                primary: { main: "#1976D2" },
+                background: { default: "#E3F2FD", paper: "#FFFFFF" },
+                text: { primary: "#000000" },
+              }
+            : {
+                primary: { main: "#90CAF9" },
+                background: { default: "#121212", paper: "#1E1E1E" },
+                text: { primary: "#FFFFFF" },
+              }),
+        },
+      }),
+    [mode]
+  );
+
+  return (
+    <ColorModeContext.Provider value={{ mode, toggleColorMode }}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children} {/* ✅ Make sure children is passed here */}
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
+
+export default ThemeContextProvider;

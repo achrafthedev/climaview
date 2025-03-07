@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchWeather } from '../redux/weatherSlice';
-import { Card, CardContent, Typography, TextField, Button, CircularProgress, Container, Box } from '@mui/material';
+import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWeather } from "../redux/weatherSlice";
+import { Card, CardContent, Typography, TextField, Button, CircularProgress, Container, Box, IconButton } from "@mui/material";
+import { ColorModeContext } from "../context/ThemeContext";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 const WeatherDisplay = () => {
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState("");
   const dispatch = useDispatch();
   const { data, status, error } = useSelector((state) => state.weather);
+  const colorMode = useContext(ColorModeContext); // ✅ FIX: Ensure context is available
 
   const handleFetchWeather = () => {
     if (city) dispatch(fetchWeather(city));
@@ -14,9 +18,14 @@ const WeatherDisplay = () => {
 
   return (
     <Container maxWidth="md" sx={{ textAlign: "center", mt: 4 }}>
-      <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", color: "#1976D2" }}>
-        🌤️ Dashboard Météo
-      </Typography>
+      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+        <Typography variant="h3" sx={{ fontWeight: "bold", color: "primary.main" }}>
+          🌤️ Dashboard Météo
+        </Typography>
+        <IconButton onClick={colorMode.toggleColorMode} color="inherit"> {/* ✅ FIX: Ensure `colorMode` is used correctly */}
+          {colorMode.mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+        </IconButton>
+      </Box>
 
       <Box display="flex" justifyContent="center" sx={{ mb: 3 }}>
         <TextField
@@ -26,19 +35,19 @@ const WeatherDisplay = () => {
           onChange={(e) => setCity(e.target.value)}
           sx={{ width: "60%", mr: 2 }}
         />
-        <Button variant="contained" size="large" sx={{ bgcolor: "#1976D2" }} onClick={handleFetchWeather}>
+        <Button variant="contained" size="large" onClick={handleFetchWeather}>
           Rechercher
         </Button>
       </Box>
 
-      {status === 'loading' && <CircularProgress />}
-      {status === 'failed' && <Typography color="error">{error}</Typography>}
+      {status === "loading" && <CircularProgress />}
+      {status === "failed" && <Typography color="error">{error}</Typography>}
 
       {data && data.current && data.current.sys && (
-        <Card elevation={4} sx={{ mt: 3, borderRadius: 3, p: 2, bgcolor: "#E3F2FD" }}>
+        <Card elevation={4} sx={{ mt: 3, borderRadius: 3, p: 2 }}>
           <CardContent>
             <Typography variant="h4">{data.current.name}, {data.current.sys.country}</Typography>
-            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#D32F2F" }}>
+            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
               🌡 Température : {data.current.main.temp}°C
             </Typography>
             <Typography variant="h6">🌥 {data.current.weather[0].description}</Typography>
