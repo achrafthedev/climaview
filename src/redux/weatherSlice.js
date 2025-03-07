@@ -1,67 +1,64 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const BASE_URL = "https://api.openweathermap.org";
 
 export const fetchWeather = createAsyncThunk(
-  'weather/fetchWeather',
+  "weather/fetchWeather",
   async (city) => {
-    console.log("🔍 Fetching weather for:", city);
+    console.log("Recherche des données météo pour:", city);
 
     try {
-      // 🌍 Get city coordinates
       const geoResponse = await axios.get(
         `${BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
       );
-      console.log("✅ Geo Response:", geoResponse.data);
+      console.log("Coordonnées obtenues:", geoResponse.data);
 
       const { lat, lon } = geoResponse.data.coord;
 
       try {
-        // 🌤️ First Attempt: Fetch 7-day forecast using One Call API v3.0
         const weatherResponse = await axios.get(
           `${BASE_URL}/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${API_KEY}&units=metric`
         );
-        console.log("✅ One Call API v3.0 Response:", weatherResponse.data);
+        console.log("Données météo (One Call API v3.0) :", weatherResponse.data);
 
         return { current: geoResponse.data, daily: weatherResponse.data.daily };
-      } catch (error) {
-        console.error("❌ One Call API v3.0 failed! Trying 5-day forecast API...");
+      } catch {
+        console.warn("Échec de One Call API v3.0, tentative avec Forecast 5 jours...");
 
-        // 🔄 Fallback: Fetch 5-day forecast (v2.5) if One Call API fails
         const forecastResponse = await axios.get(
           `${BASE_URL}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
         );
-        console.log("✅ 5-Day Forecast API Response:", forecastResponse.data);
+        console.log("Données météo (Forecast 5 jours):", forecastResponse.data);
 
         return { current: geoResponse.data, daily: forecastResponse.data.list };
       }
     } catch (error) {
-      console.error("❌ Error fetching weather data:", error.response?.data || error.message);
+      console.error("Erreur lors de la récupération des données météo:", error.response?.data || error.message);
       throw error;
     }
   }
 );
 
 const weatherSlice = createSlice({
-  name: 'weather',
-  initialState: { data: null, status: 'idle', error: null },
+  name: "weather",
+  initialState: { data: null, status: "idle", error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchWeather.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchWeather.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.data = action.payload;
-        console.log("✅ Redux Store Updated:", action.payload);
+        console.log("Mise à jour du store Redux:", action.payload);
       })
       .addCase(fetchWeather.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
-        console.error("❌ Redux Error:", action.error.message);
+        console.error("Erreur Redux:", action.error.message);
       });
   },
 });

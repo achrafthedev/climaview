@@ -2,7 +2,7 @@ import React, { createContext, useState, useMemo } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-export const ColorModeContext = createContext(); // ✅ Ensure it's exported
+export const ColorModeContext = createContext();
 
 const ThemeContextProvider = ({ children }) => {
   const [mode, setMode] = useState("light");
@@ -36,7 +36,7 @@ const ThemeContextProvider = ({ children }) => {
     <ColorModeContext.Provider value={{ mode, toggleColorMode }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {children} {/* ✅ Make sure children is passed here */}
+        {children}
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

@@ -1,7 +1,17 @@
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeather } from "../redux/weatherSlice";
-import { Card, CardContent, Typography, TextField, Button, CircularProgress, Container, Box, IconButton } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  CircularProgress,
+  Container,
+  Box,
+  IconButton,
+} from "@mui/material";
 import { ColorModeContext } from "../context/ThemeContext";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -10,19 +20,24 @@ const WeatherDisplay = () => {
   const [city, setCity] = useState("");
   const dispatch = useDispatch();
   const { data, status, error } = useSelector((state) => state.weather);
-  const colorMode = useContext(ColorModeContext); // ✅ FIX: Ensure context is available
+  const colorMode = useContext(ColorModeContext);
 
   const handleFetchWeather = () => {
-    if (city) dispatch(fetchWeather(city));
+    if (city.trim() !== "") dispatch(fetchWeather(city));
   };
 
   return (
     <Container maxWidth="md" sx={{ textAlign: "center", mt: 4 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mb: 2 }}
+      >
         <Typography variant="h3" sx={{ fontWeight: "bold", color: "primary.main" }}>
           🌤️ Dashboard Météo
         </Typography>
-        <IconButton onClick={colorMode.toggleColorMode} color="inherit"> {/* ✅ FIX: Ensure `colorMode` is used correctly */}
+        <IconButton onClick={colorMode.toggleColorMode} color="inherit">
           {colorMode.mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
       </Box>
@@ -43,10 +58,12 @@ const WeatherDisplay = () => {
       {status === "loading" && <CircularProgress />}
       {status === "failed" && <Typography color="error">{error}</Typography>}
 
-      {data && data.current && data.current.sys && (
+      {data?.current?.sys && (
         <Card elevation={4} sx={{ mt: 3, borderRadius: 3, p: 2 }}>
           <CardContent>
-            <Typography variant="h4">{data.current.name}, {data.current.sys.country}</Typography>
+            <Typography variant="h4">
+              {data.current.name}, {data.current.sys.country}
+            </Typography>
             <Typography variant="h5" sx={{ fontWeight: "bold" }}>
               🌡 Température : {data.current.main.temp}°C
             </Typography>
