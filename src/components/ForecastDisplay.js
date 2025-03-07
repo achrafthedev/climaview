@@ -5,8 +5,10 @@ import { Card, CardContent, Typography, Grid } from '@mui/material';
 const ForecastDisplay = () => {
   const { data } = useSelector((state) => state.weather);
 
-  // ✅ FIX: Check if data exists before rendering
-  if (!data || !data.daily || data.daily.length === 0) {
+  console.log("Forecast Data:", data); // 🔍 Debug: Check the structure of data
+
+  // ✅ Fix: Ensure `data.daily` is available before rendering
+  if (!data || !data.daily || !Array.isArray(data.daily) || data.daily.length === 0) {
     return <Typography align="center" sx={{ mt: 2 }}>Aucune prévision disponible</Typography>;
   }
 
@@ -19,9 +21,9 @@ const ForecastDisplay = () => {
               <Typography variant="h6">
                 {new Date(day.dt * 1000).toLocaleDateString("fr-FR", { weekday: "long" })}
               </Typography>
-              <Typography variant="body1">🌡 Temp: {day.temp.day}°C</Typography>
-              <Typography variant="body2">🌥 {day.weather[0].description}</Typography>
-              <Typography variant="body2">💧 Humidité: {day.humidity}%</Typography>
+              <Typography variant="body1">🌡 Temp: {day.temp?.day ?? 'N/A'}°C</Typography>
+              <Typography variant="body2">🌥 {day.weather?.[0]?.description ?? 'N/A'}</Typography>
+              <Typography variant="body2">💧 Humidité: {day.humidity ?? 'N/A'}%</Typography>
             </CardContent>
           </Card>
         </Grid>
