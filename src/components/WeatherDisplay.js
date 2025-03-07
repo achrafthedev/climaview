@@ -31,27 +31,23 @@ const WeatherDisplay = () => {
         Rechercher
       </Button>
 
-      {status === 'loading' && (
-        <Container sx={{ textAlign: "center", mt: 2 }}>
-          <CircularProgress />
-        </Container>
-      )}
+      {status === 'loading' && <CircularProgress sx={{ mt: 2, display: 'block', mx: 'auto' }} />}
+      {status === 'failed' && <Typography color="error" align="center">{error}</Typography>}
 
-      {status === 'failed' && (
-        <Typography color="error" align="center" sx={{ mt: 2 }}>
-          Erreur : {error}
-        </Typography>
-      )}
-
-      {data && (
+      {/* ✅ FIX: Only display data if it's available */}
+      {data && data.current && data.current.sys ? (
         <Card sx={{ mt: 3, textAlign: "center", p: 2 }}>
           <CardContent>
-            <Typography variant="h5">{data.name}, {data.sys.country}</Typography>
-            <Typography variant="h6">🌡 Température : {data.main.temp}°C</Typography>
-            <Typography variant="body1">🌥 Conditions : {data.weather[0].description}</Typography>
-            <Typography variant="body1">💧 Humidité : {data.main.humidity}%</Typography>
+            <Typography variant="h5">
+              {data.current.name}, {data.current.sys.country}
+            </Typography>
+            <Typography variant="h6">🌡 Température : {data.current.main.temp}°C</Typography>
+            <Typography variant="body1">🌥 Conditions : {data.current.weather[0].description}</Typography>
+            <Typography variant="body1">💧 Humidité : {data.current.main.humidity}%</Typography>
           </CardContent>
         </Card>
+      ) : (
+        status !== 'loading' && <Typography align="center" sx={{ mt: 2 }}>Aucune donnée disponible</Typography>
       )}
     </Container>
   );
