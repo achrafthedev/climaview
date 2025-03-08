@@ -56,7 +56,31 @@ L'objectif est de concevoir un **dashboard interactif en React** affichant des i
 
 - 📍 **Intégration d'une carte interactive** avec Leaflet  
 - 📊 **Ajout de graphiques analytiques** sur les tendances météo  
-- ⚡ **Optimisation des performances** et gestion du cache  
+- ⚡ **Optimisation des performances** et gestion du cache
+
+## 🧪 Tests et Validation
+
+L'application est testée à l'aide de **Cypress** pour assurer le bon fonctionnement de ses fonctionnalités principales. Les tests couvrent l'affichage des données météo, la gestion des erreurs et le mode sombre.
+
+### 📌 Installation de Cypress
+Assurez-vous d'avoir Cypress installé dans votre projet. Si ce n'est pas encore fait, exécutez :
+```sh
+npm install cypress --save-dev
+```
+### 🚀 Exécution des tests
+```sh
+npx cypress open
+```
+Ou pour exécuter les tests en mode headless :
+```sh
+npx cypress run
+```
+### 🔍 Cas de tests couverts
+- ✅ Affichage des données météo : Vérifie que les informations météorologiques d'une ville saisie sont correctement affichées.
+- ✅ Gestion des erreurs : Vérifie que l'application affiche un message d'erreur lorsqu'une ville inexistante est saisie.
+- ✅ Mise à jour de la météo : Vérifie que la météo se met à jour correctement lorsqu'une autre ville est recherchée.
+- ✅ Affichage des prévisions météo : Vérifie que les prévisions à 5 jours sont bien affichées.
+- ✅ Mode sombre : Vérifie que le mode sombre peut être activé et désactivé.
 
 ## 📝 Auteur  
 
