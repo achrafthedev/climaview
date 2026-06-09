@@ -8,7 +8,7 @@ import {
   Box,
   Chip,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+
 import { useLanguage } from "../context/LanguageContext";
 import WaterDrop from "@mui/icons-material/WaterDrop";
 
@@ -24,7 +24,6 @@ const weatherIconBg = {
 };
 
 const ForecastCard = ({ day, index, t, lang }) => {
-  const theme = useTheme();
   const weatherMain = day.weather?.[0]?.main || "Clear";
   const bg = weatherIconBg[weatherMain] || "linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 100%)";
 
