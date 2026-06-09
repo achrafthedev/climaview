@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  climaview:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_WEATHER_API_KEY=${REACT_APP_WEATHER_API_KEY}
+    ports:
+      - "3000:80"
+    restart: always
